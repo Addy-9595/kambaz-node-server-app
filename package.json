@@ -1,0 +1,37 @@
+{
+  "type": "module",
+  "name": "kambaz-node-server-app",
+  "version": "1.0.0",
+  "description": " Node.js HTTP Web server for the Kambaz application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025.git"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "Server",
+    "HTTP",
+    "Web",
+    "Development",
+    "CS5610"
+  ],
+  "author": "Atharva Dalvi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025/issues"
+  },
+  "homepage": "https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "uuid": "^13.0.0"
+  }
+}
