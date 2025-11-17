@@ -13,14 +13,37 @@ import cors from "cors";
 
 const app = express();
 
-// CORS configuration
+// CORS configuration with function for better control
+const allowedOrigins = [
+    process.env.CLIENT_URL || "http://localhost:3000",
+    "https://kambaz-next-js-cs5016-fall2025-a5.vercel.app",
+];
+
 app.use(cors({
     credentials: true,
-    origin: [
-        process.env.CLIENT_URL || "http://localhost:3000",
-        "https://kambaz-next-js-cs5016-fall2025-a5.vercel.app",
-        /https:\/\/kambaz-next-js-cs5016-fall2025-a5-.*\.vercel\.app$/ 
-    ],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps, Postman, or curl)
+        if (!origin) {
+            console.log('✅ No origin header - allowing request');
+            return callback(null, true);
+        }
+
+        // Check exact matches
+        if (allowedOrigins.includes(origin)) {
+            console.log('✅ Origin allowed (exact match):', origin);
+            return callback(null, true);
+        }
+
+        // Check regex pattern for Vercel preview deployments
+        const vercelPattern = /^https:\/\/kambaz-next-js-cs5016-fall2025-a5-.*\.vercel\.app$/;
+        if (vercelPattern.test(origin)) {
+            console.log('✅ Origin allowed (regex match):', origin);
+            return callback(null, true);
+        }
+
+        console.log('❌ Origin blocked:', origin);
+        callback(new Error('Not allowed by CORS'));
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
