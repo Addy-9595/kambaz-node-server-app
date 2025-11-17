@@ -13,20 +13,37 @@ import cors from "cors";
 
 const app = express();
 
+// CORS configuration
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: [
+        process.env.CLIENT_URL || "http://localhost:3000",
+        "https://kambaz-next-js-cs5016-fall2025-a5.vercel.app",
+        /https:\/\/kambaz-next-js-cs5016-fall2025-a5-.*\.vercel\.app$/ 
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+// Debug logging
+console.log('🌍 Environment:', process.env.SERVER_ENV);
+console.log('🔑 Client URL:', process.env.CLIENT_URL);
+console.log('🍪 Session Secret:', process.env.SESSION_SECRET ? 'SET' : 'NOT SET');
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`📥 ${req.method} ${req.path} from origin: ${req.headers.origin || 'no origin'}`);
+    next();
+});
+
+// Session configuration
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false,  // Set to true in production with HTTPS
+    secure: process.env.SERVER_ENV === "production",
     sameSite: process.env.SERVER_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   }
@@ -37,6 +54,11 @@ if (process.env.SERVER_ENV === "production") {
   sessionOptions.cookie.secure = true;
   sessionOptions.cookie.sameSite = "none";
 }
+
+console.log('🍪 Cookie settings:', {
+    secure: sessionOptions.cookie.secure,
+    sameSite: sessionOptions.cookie.sameSite
+});
 
 app.use(session(sessionOptions));
 app.use(express.json());
@@ -50,5 +72,6 @@ AssignmentRoutes(app, db);
 Lab5(app)
 Hello(app)
 
-app.listen(process.env.PORT || 4000)
-console.log(`Server is running on port ${process.env.PORT || 4000}`)
+const PORT = process.env.PORT || 4000;
+app.listen(PORT);
+console.log(`🚀 Server is running on port ${PORT}`);
