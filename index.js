@@ -10,7 +10,7 @@ import AssignmentRoutes from "./Assignments/routes.js";
 import EnrollmentRoutes from "./Enrollments/routes.js";
 
 const app = express();
-
+// Connect to MongoDB
 const CONNECTION_STRING = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
 
