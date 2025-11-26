@@ -1,37 +1,31 @@
 {
-  "type": "module",
   "name": "kambaz-node-server-app",
   "version": "1.0.0",
-  "description": " Node.js HTTP Web server for the Kambaz application",
+  "description": "Kambaz Backend Server with MongoDB",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025.git"
+    "dev": "nodemon index.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
-    "Node",
-    "REST",
-    "Server",
-    "HTTP",
-    "Web",
-    "Development",
-    "CS5610"
+    "express",
+    "mongodb",
+    "mongoose",
+    "kambaz"
   ],
-  "author": "Atharva Dalvi",
+  "author": "Your Name",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025/issues"
-  },
-  "homepage": "https://github.com/Addy-9595/kambaz-next-js-cs5016-fall2025#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
     "express-session": "^1.18.2",
-    "uuid": "^13.0.0"
+    "mongoose": "^8.20.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
