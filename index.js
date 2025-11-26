@@ -11,7 +11,7 @@ import EnrollmentRoutes from "./Enrollments/routes.js";
 
 const app = express();
 
-const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
+const CONNECTION_STRING = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
 
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL || "http://localhost:3000" }));
